@@ -1,1 +1,2 @@
-devices = "/srv/minstor"
+devices = "/data/minstor"
+log_level = "Debug"

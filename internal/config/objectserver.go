@@ -7,28 +7,39 @@ import (
 	"github.com/pelletier/go-toml/v2"
 )
 
-var configRoot = "/etc/minstor"
+var (
+	configRoot             = "/etc/minstor"
+	objectServerConfigName = "object-server.toml"
+)
 
 type ObjectServerConfig struct {
-	Devices string
+	Devices  string `toml:"devices"`
+	LogLevel string `toml:"log_level"`
 }
 
 func SetConfigRoot(dir string) {
 	configRoot = dir
 }
 
+func SetObjectServerConfigName(name string) {
+	objectServerConfigName = name
+}
+
 func NewObjectServerConfig() (*ObjectServerConfig, error) {
-	content, err := os.ReadFile(filepath.Join(configRoot, "/object-server.toml"))
+	content, err := os.ReadFile(filepath.Join(configRoot, objectServerConfigName))
 	if err != nil {
 		return nil, err
 	}
 
-	config := ObjectServerConfig{}
+	conf := ObjectServerConfig{
+		Devices:  "/srv/minstor",
+		LogLevel: "Info",
+	}
 
-	err = toml.Unmarshal(content, &config)
+	err = toml.Unmarshal(content, &conf)
 	if err != nil {
 		return nil, err
 	}
 
-	return &config, nil
+	return &conf, nil
 }
