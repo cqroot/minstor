@@ -17,7 +17,7 @@ func SetConfigRoot(dir string) {
 	configRoot = dir
 }
 
-func ReadObjectServerConfig() (*ObjectServerConfig, error) {
+func NewObjectServerConfig() (*ObjectServerConfig, error) {
 	content, err := os.ReadFile(filepath.Join(configRoot, "/object-server.toml"))
 	if err != nil {
 		return nil, err

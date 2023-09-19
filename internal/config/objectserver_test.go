@@ -10,7 +10,7 @@ import (
 func TestObjectServerConfig(t *testing.T) {
 	config.SetConfigRoot("./testdata")
 
-	conf, err := config.ReadObjectServerConfig()
+	conf, err := config.NewObjectServerConfig()
 	require.Nil(t, err)
 
 	require.Equal(t, config.ObjectServerConfig{
