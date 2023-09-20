@@ -13,8 +13,9 @@ var (
 )
 
 type ObjectServerConfig struct {
-	Devices  string `toml:"devices"`
-	LogLevel string `toml:"log_level"`
+	Devices   string `toml:"devices"`
+	LogLevel  string `toml:"log_level"`
+	LogCaller bool   `toml:"log_caller"`
 }
 
 func SetConfigRoot(dir string) {
@@ -32,8 +33,9 @@ func NewObjectServerConfig() (*ObjectServerConfig, error) {
 	}
 
 	conf := ObjectServerConfig{
-		Devices:  "/srv/minstor",
-		LogLevel: "Info",
+		Devices:   "/srv/minstor",
+		LogLevel:  "Info",
+		LogCaller: false,
 	}
 
 	err = toml.Unmarshal(content, &conf)

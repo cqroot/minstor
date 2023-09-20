@@ -15,8 +15,9 @@ func TestDefaultObjectServerConfig(t *testing.T) {
 	require.Nil(t, err)
 
 	require.Equal(t, config.ObjectServerConfig{
-		Devices:  "/srv/minstor",
-		LogLevel: "Info",
+		Devices:   "/srv/minstor",
+		LogLevel:  "Info",
+		LogCaller: false,
 	}, *conf)
 }
 
@@ -28,7 +29,8 @@ func TestObjectServerConfig(t *testing.T) {
 	require.Nil(t, err)
 
 	require.Equal(t, config.ObjectServerConfig{
-		Devices:  "/data/minstor",
-		LogLevel: "Debug",
+		Devices:   "/data/minstor",
+		LogLevel:  "Debug",
+		LogCaller: true,
 	}, *conf)
 }

@@ -1,2 +1,3 @@
 devices = "/data/minstor"
 log_level = "Debug"
+log_caller = true
