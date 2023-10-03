@@ -14,7 +14,7 @@ func newObsCmd() *cobra.Command {
 			obs, err := obs.InitObs()
 			cobra.CheckErr(err)
 
-			obs.Run()
+			cobra.CheckErr(obs.Run())
 		},
 	}
 	return cmd

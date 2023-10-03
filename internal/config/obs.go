@@ -16,6 +16,8 @@ type ObsConfig struct {
 	FieldLogLevel  string `toml:"log_level"`
 	FieldLogCaller bool   `toml:"log_caller"`
 	FieldDevices   string `toml:"devices"`
+	FieldBindIp    string `toml:"bind_ip"`
+	FieldBindPort  int    `toml:"bind_port"`
 }
 
 func SetConfigRoot(dir string) {
@@ -36,6 +38,8 @@ func NewObsConfig() (*ObsConfig, error) {
 		FieldDevices:   "/srv/minstor",
 		FieldLogLevel:  "Info",
 		FieldLogCaller: false,
+		FieldBindIp:    "127.0.0.1",
+		FieldBindPort:  10001,
 	}
 
 	err = toml.Unmarshal(content, &conf)
@@ -56,4 +60,12 @@ func (c ObsConfig) LogCaller() bool {
 
 func (c ObsConfig) Devices() string {
 	return c.FieldDevices
+}
+
+func (c ObsConfig) BindIp() string {
+	return c.FieldBindIp
+}
+
+func (c ObsConfig) BindPort() int {
+	return c.FieldBindPort
 }

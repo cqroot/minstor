@@ -1,8 +1,11 @@
 package obs
 
 import (
+	"fmt"
+
 	"github.com/cqroot/minstor/internal/config"
 	"github.com/cqroot/minstor/internal/logger"
+	"github.com/gin-gonic/gin"
 )
 
 type Obs struct {
@@ -17,6 +20,8 @@ func New(config *config.ObsConfig, logger logger.Logger) *Obs {
 	}
 }
 
-func (s Obs) Run() {
-	s.logger.Info().Msg("Run OBS!")
+func (s Obs) Run() error {
+	r := gin.Default()
+
+	return r.Run(fmt.Sprintf("%s:%d", s.config.BindIp(), s.config.BindPort()))
 }

@@ -1,3 +1,5 @@
 devices = "/data/minstor"
 log_level = "Debug"
 log_caller = true
+bind_ip = "8.8.8.8"
+bind_port = "10002"
