@@ -13,9 +13,9 @@ var (
 )
 
 type ObsConfig struct {
-	Devices   string `toml:"devices"`
-	LogLevel  string `toml:"log_level"`
-	LogCaller bool   `toml:"log_caller"`
+	FieldLogLevel  string `toml:"log_level"`
+	FieldLogCaller bool   `toml:"log_caller"`
+	FieldDevices   string `toml:"devices"`
 }
 
 func SetConfigRoot(dir string) {
@@ -33,9 +33,9 @@ func NewObsConfig() (*ObsConfig, error) {
 	}
 
 	conf := ObsConfig{
-		Devices:   "/srv/minstor",
-		LogLevel:  "Info",
-		LogCaller: false,
+		FieldDevices:   "/srv/minstor",
+		FieldLogLevel:  "Info",
+		FieldLogCaller: false,
 	}
 
 	err = toml.Unmarshal(content, &conf)
@@ -44,4 +44,16 @@ func NewObsConfig() (*ObsConfig, error) {
 	}
 
 	return &conf, nil
+}
+
+func (c ObsConfig) LogLevel() string {
+	return c.FieldLogLevel
+}
+
+func (c ObsConfig) LogCaller() bool {
+	return c.FieldLogCaller
+}
+
+func (c ObsConfig) Devices() string {
+	return c.FieldDevices
 }

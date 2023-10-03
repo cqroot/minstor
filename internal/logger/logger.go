@@ -23,14 +23,14 @@ func logLevelFromString(logLevel string) zerolog.Level {
 	return zerolog.InfoLevel
 }
 
-func New(conf *config.ObsConfig) Logger {
+func New(conf config.Config) Logger {
 	zerolog.TimeFieldFormat = "2006-01-02 15:04:05.999"
 	l := zerolog.New(os.Stderr).
-		Level(logLevelFromString(conf.LogLevel)).
+		Level(logLevelFromString(conf.LogLevel())).
 		With().
 		Timestamp()
 
-	if conf.LogCaller {
+	if conf.LogCaller() {
 		return l.Caller().Logger()
 	}
 	return l.Logger()

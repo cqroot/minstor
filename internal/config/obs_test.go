@@ -15,9 +15,9 @@ func TestDefaultObsConfig(t *testing.T) {
 	require.Nil(t, err)
 
 	require.Equal(t, config.ObsConfig{
-		Devices:   "/srv/minstor",
-		LogLevel:  "Info",
-		LogCaller: false,
+		FieldDevices:   "/srv/minstor",
+		FieldLogLevel:  "Info",
+		FieldLogCaller: false,
 	}, *conf)
 }
 
@@ -29,8 +29,8 @@ func TestObsConfig(t *testing.T) {
 	require.Nil(t, err)
 
 	require.Equal(t, config.ObsConfig{
-		Devices:   "/data/minstor",
-		LogLevel:  "Debug",
-		LogCaller: true,
+		FieldDevices:   "/data/minstor",
+		FieldLogLevel:  "Debug",
+		FieldLogCaller: true,
 	}, *conf)
 }

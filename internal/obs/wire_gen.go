@@ -9,6 +9,7 @@ package obs
 import (
 	"github.com/cqroot/minstor/internal/config"
 	"github.com/cqroot/minstor/internal/logger"
+	"github.com/google/wire"
 )
 
 // Injectors from wire.go:
@@ -22,3 +23,7 @@ func InitObs() (*Obs, error) {
 	obs := New(obsConfig, zerologLogger)
 	return obs, nil
 }
+
+// wire.go:
+
+var ConfigSet = wire.NewSet(config.NewObsConfig, wire.Bind(new(config.Config), new(*config.ObsConfig)))

@@ -9,7 +9,12 @@ import (
 	"github.com/google/wire"
 )
 
+var ConfigSet = wire.NewSet(
+	config.NewObsConfig,
+	wire.Bind(new(config.Config), new(*config.ObsConfig)),
+)
+
 func InitObs() (*Obs, error) {
-	wire.Build(New, config.NewObsConfig, logger.New)
+	wire.Build(New, ConfigSet, logger.New)
 	return &Obs{}, nil
 }
