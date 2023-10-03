@@ -7,28 +7,28 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestDefaultObjectServerConfig(t *testing.T) {
+func TestDefaultObsConfig(t *testing.T) {
 	config.SetConfigRoot("./testdata")
-	config.SetObjectServerConfigName("empty-object-server.toml")
+	config.SetObsConfigName("empty-obs.toml")
 
-	conf, err := config.NewObjectServerConfig()
+	conf, err := config.NewObsConfig()
 	require.Nil(t, err)
 
-	require.Equal(t, config.ObjectServerConfig{
+	require.Equal(t, config.ObsConfig{
 		Devices:   "/srv/minstor",
 		LogLevel:  "Info",
 		LogCaller: false,
 	}, *conf)
 }
 
-func TestObjectServerConfig(t *testing.T) {
+func TestObsConfig(t *testing.T) {
 	config.SetConfigRoot("./testdata")
-	config.SetObjectServerConfigName("object-server.toml")
+	config.SetObsConfigName("obs.toml")
 
-	conf, err := config.NewObjectServerConfig()
+	conf, err := config.NewObsConfig()
 	require.Nil(t, err)
 
-	require.Equal(t, config.ObjectServerConfig{
+	require.Equal(t, config.ObsConfig{
 		Devices:   "/data/minstor",
 		LogLevel:  "Debug",
 		LogCaller: true,

@@ -8,6 +8,8 @@ import (
 	"github.com/rs/zerolog"
 )
 
+type Logger = zerolog.Logger
+
 func logLevelFromString(logLevel string) zerolog.Level {
 	logLevel = strings.ToLower(logLevel)
 	switch logLevel {
@@ -21,7 +23,7 @@ func logLevelFromString(logLevel string) zerolog.Level {
 	return zerolog.InfoLevel
 }
 
-func New(conf *config.ObjectServerConfig) zerolog.Logger {
+func New(conf *config.ObsConfig) Logger {
 	zerolog.TimeFieldFormat = "2006-01-02 15:04:05.999"
 	l := zerolog.New(os.Stderr).
 		Level(logLevelFromString(conf.LogLevel)).

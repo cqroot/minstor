@@ -8,11 +8,11 @@ import (
 )
 
 var (
-	configRoot             = "/etc/minstor"
-	objectServerConfigName = "object-server.toml"
+	configRoot    = "/etc/minstor"
+	obsConfigName = "obs.toml"
 )
 
-type ObjectServerConfig struct {
+type ObsConfig struct {
 	Devices   string `toml:"devices"`
 	LogLevel  string `toml:"log_level"`
 	LogCaller bool   `toml:"log_caller"`
@@ -22,17 +22,17 @@ func SetConfigRoot(dir string) {
 	configRoot = dir
 }
 
-func SetObjectServerConfigName(name string) {
-	objectServerConfigName = name
+func SetObsConfigName(name string) {
+	obsConfigName = name
 }
 
-func NewObjectServerConfig() (*ObjectServerConfig, error) {
-	content, err := os.ReadFile(filepath.Join(configRoot, objectServerConfigName))
+func NewObsConfig() (*ObsConfig, error) {
+	content, err := os.ReadFile(filepath.Join(configRoot, obsConfigName))
 	if err != nil {
 		return nil, err
 	}
 
-	conf := ObjectServerConfig{
+	conf := ObsConfig{
 		Devices:   "/srv/minstor",
 		LogLevel:  "Info",
 		LogCaller: false,
