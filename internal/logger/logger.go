@@ -2,36 +2,31 @@ package logger
 
 import (
 	"os"
-	"strings"
 
-	"github.com/cqroot/minstor/internal/config"
-	"github.com/rs/zerolog"
+	"golang.org/x/exp/slog"
 )
 
-type Logger = zerolog.Logger
+var logger *slog.Logger
 
-func logLevelFromString(logLevel string) zerolog.Level {
-	logLevel = strings.ToLower(logLevel)
-	switch logLevel {
-	case "error":
-		return zerolog.WarnLevel
-	case "warn":
-		return zerolog.WarnLevel
-	case "debug":
-		return zerolog.DebugLevel
-	}
-	return zerolog.InfoLevel
+func Init() {
+	logger = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+		Level: slog.LevelDebug.Level(),
+	}))
 }
 
-func New(conf config.Config) Logger {
-	zerolog.TimeFieldFormat = "2006-01-02 15:04:05.999"
-	l := zerolog.New(os.Stderr).
-		Level(logLevelFromString(conf.LogLevel())).
-		With().
-		Timestamp()
+func Debug(msg string, args ...any) {
+	logger.Debug(msg, args...)
+}
 
-	if conf.LogCaller() {
-		return l.Caller().Logger()
-	}
-	return l.Logger()
+func Info(msg string, args ...any) {
+	logger.Info(msg, args...)
+}
+
+func Error(msg string, args ...any) {
+	logger.Error(msg, args...)
+}
+
+func ErrorE(msg string, err error, args ...any) {
+	args = append(args, slog.String("error", err.Error()))
+	logger.Error(msg, args...)
 }
